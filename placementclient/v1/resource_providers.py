@@ -15,6 +15,10 @@ from placementclient import base
 
 
 class ResourceProvider(base.Resource):
+ 
+    def __init__(self, manager, info, loaded=False, resp=None):
+        super(ResourceProvider, self).__init__(manager, info, loaded, resp)
+        self.id = self.uuid
 
     def usages(self):
         links = {x['rel']: x['href'].replace('/placement', '')
