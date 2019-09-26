@@ -13,6 +13,7 @@
 
 from placementclient import client
 from placementclient import exceptions
+from placementclient.v1 import allocations
 from placementclient.v1 import resource_providers
 
 
@@ -29,5 +30,7 @@ class Client(object):
                 message='Session is required argument')
         self.http_client = client.SessionClient(
             session, service_type=service_type, **kwargs)
+        self.allocations = allocations.AllocationManager(
+            self.http_client)
         self.resource_providers = resource_providers.ResourceProviderManager(
             self.http_client)
