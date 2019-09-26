@@ -34,6 +34,9 @@ class ResourceProvider(base.Resource):
                                  response_key='inventories',
                                  obj_class=Inventory)
 
+    def allocations(self):
+        return self.manager.allocations(self.id)
+
 
 class Usage(base.Resource):
     pass
@@ -54,3 +57,10 @@ class ResourceProviderManager(base.BasicManager):
 
     def get(self, resource_id):
         return self._get('/%s/%s' % (self.base_url, resource_id))
+
+    def delete(self, resource_id):
+        return self._delete('/%s/%s' % (self.base_url, resource_id))
+
+    def allocations(self, resource_id):
+        return self._list('/%s/%s/allocations' % (self.base_url, resource_id),
+                          response_key='allocations')
