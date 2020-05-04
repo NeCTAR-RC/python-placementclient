@@ -14,6 +14,7 @@
 from placementclient import client
 from placementclient import exceptions
 from placementclient.v1 import allocations
+from placementclient.v1 import allocation_candidates
 from placementclient.v1 import resource_providers
 
 
@@ -32,5 +33,8 @@ class Client(object):
             session, service_type=service_type, **kwargs)
         self.allocations = allocations.AllocationManager(
             self.http_client)
+        self.allocation_candidates = \
+            allocation_candidates.AllocationCandidatesManager(
+                self.http_client)
         self.resource_providers = resource_providers.ResourceProviderManager(
             self.http_client)
