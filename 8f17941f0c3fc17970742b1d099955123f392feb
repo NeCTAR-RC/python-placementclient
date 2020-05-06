@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44846dc0_0e884bbb",
+        "filename": "placementclient/v1/allocation_candidates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-05-06T22:46:29Z",
+      "side": 1,
+      "message": "needs to be \u003e1.21 to support aggregates",
+      "range": {
+        "startLine": 26,
+        "startChar": 53,
+        "endLine": 26,
+        "endChar": 55
+      },
+      "revId": "8f17941f0c3fc17970742b1d099955123f392feb",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": true
+    }
+  ]
+}
