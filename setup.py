@@ -13,7 +13,7 @@ entry_points = {
 
 setuptools.setup(
     name='placementclient',
-    version='0.2.0',
+    version='0.3.0',
     description=('Client for the Placement API'),
     author='Sam Morrison',
     author_email='sorrison@gmail.com',
