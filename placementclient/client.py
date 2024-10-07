@@ -14,28 +14,25 @@
 from keystoneauth1 import adapter
 from oslo_utils import importutils
 
+import placementclient
 from placementclient import exceptions
 
 
 def Client(version, *args, **kwargs):
-    module = 'placementclient.v%s.client' % version
+    module = f'placementclient.v{version}.client'
     module = importutils.import_module(module)
     client_class = getattr(module, 'Client')
     return client_class(*args, **kwargs)
 
 
 class SessionClient(adapter.Adapter):
-
     client_name = 'python-placementclient'
-    client_version = '0.3.0'
+    client_version = placementclient.__version__
 
     def request(self, url, method, **kwargs):
         kwargs.setdefault('headers', kwargs.get('headers', {}))
         raise_exc = kwargs.pop('raise_exc', True)
-        resp = super(SessionClient, self).request(url,
-                                                  method,
-                                                  raise_exc=False,
-                                                  **kwargs)
+        resp = super().request(url, method, raise_exc=False, **kwargs)
 
         if raise_exc and resp.status_code >= 400:
             raise exceptions.from_response(resp, url, method)

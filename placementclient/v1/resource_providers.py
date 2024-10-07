@@ -15,24 +15,27 @@ from placementclient import base
 
 
 class ResourceProvider(base.Resource):
-
     def __init__(self, manager, info, loaded=False, resp=None):
-        super(ResourceProvider, self).__init__(manager, info, loaded, resp)
+        super().__init__(manager, info, loaded, resp)
         self.id = self.uuid
 
     def usages(self):
-        links = {x['rel']: x['href'].replace('/placement', '')
-                 for x in self.links}
-        return self.manager._get(links['usages'],
-                                 response_key='usages',
-                                 obj_class=Usage)
+        links = {
+            x['rel']: x['href'].replace('/placement', '') for x in self.links
+        }
+        return self.manager._get(
+            links['usages'], response_key='usages', obj_class=Usage
+        )
 
     def inventories(self):
-        links = {x['rel']: x['href'].replace('/placement', '')
-                 for x in self.links}
-        return self.manager._get(links['inventories'],
-                                 response_key='inventories',
-                                 obj_class=Inventory)
+        links = {
+            x['rel']: x['href'].replace('/placement', '') for x in self.links
+        }
+        return self.manager._get(
+            links['inventories'],
+            response_key='inventories',
+            obj_class=Inventory,
+        )
 
     def allocations(self):
         return self.manager.allocations(self.id)
@@ -47,20 +50,22 @@ class Inventory(base.Resource):
 
 
 class ResourceProviderManager(base.BasicManager):
-
     base_url = 'resource_providers'
     resource_class = ResourceProvider
 
     def list(self, **kwargs):
-        return self._list('/%s' % self.base_url, params=kwargs,
-                          response_key=self.base_url)
+        return self._list(
+            f'/{self.base_url}', params=kwargs, response_key=self.base_url
+        )
 
     def get(self, resource_id):
-        return self._get('/%s/%s' % (self.base_url, resource_id))
+        return self._get(f'/{self.base_url}/{resource_id}')
 
     def delete(self, resource_id):
-        return self._delete('/%s/%s' % (self.base_url, resource_id))
+        return self._delete(f'/{self.base_url}/{resource_id}')
 
     def allocations(self, resource_id):
-        return self._list('/%s/%s/allocations' % (self.base_url, resource_id),
-                          response_key='allocations')
+        return self._list(
+            f'/{self.base_url}/{resource_id}/allocations',
+            response_key='allocations',
+        )

@@ -11,21 +11,9 @@
 #   under the License.
 #
 
-from placementclient import base
+from nectarclient_lib.tests.unit import utils
 
 
-class Allocation(base.Resource):
-    pass
-
-
-class AllocationManager(base.BasicManager):
-    base_url = 'allocations'
-    resource_class = Allocation
-
-    def list(self, consumer_id):
-        return self._list(
-            f'/{self.base_url}/{consumer_id}', response_key=self.base_url
-        )
-
-    def delete(self, consumer_id):
-        return self._delete(f'/{self.base_url}/{consumer_id}')
+class PlacementTest(utils.TestCase):
+    def test_placement(self):
+        return

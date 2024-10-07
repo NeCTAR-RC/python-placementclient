@@ -18,7 +18,7 @@ from placementclient.v1 import allocations
 from placementclient.v1 import resource_providers
 
 
-class Client(object):
+class Client:
     """Client for the Placement v1 API
     :param string session: session
     :type session: :py:class:`keystoneauth.adapter.Adapter`
@@ -28,13 +28,15 @@ class Client(object):
         """Initialize a new client for the Placement v1 API."""
         if session is None:
             raise exceptions.ClientException(
-                message='Session is required argument')
+                message='Session is required argument'
+            )
         self.http_client = client.SessionClient(
-            session, service_type=service_type, **kwargs)
-        self.allocations = allocations.AllocationManager(
-            self.http_client)
-        self.allocation_candidates = \
-            allocation_candidates.AllocationCandidatesManager(
-                self.http_client)
+            session, service_type=service_type, **kwargs
+        )
+        self.allocations = allocations.AllocationManager(self.http_client)
+        self.allocation_candidates = (
+            allocation_candidates.AllocationCandidatesManager(self.http_client)
+        )
         self.resource_providers = resource_providers.ResourceProviderManager(
-            self.http_client)
+            self.http_client
+        )

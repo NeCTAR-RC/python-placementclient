@@ -19,14 +19,18 @@ class AllocationCandidates(base.Resource):
 
 
 class AllocationCandidatesManager(base.BasicManager):
-
     base_url = 'allocation_candidates'
     resource_class = AllocationCandidates
     response_key = 'provider_summaries'
-    headers = {'OpenStack-API-Version': 'placement 1.21',
-               'Accept': 'application/json'}
+    headers = {
+        'OpenStack-API-Version': 'placement 1.21',
+        'Accept': 'application/json',
+    }
 
     def list(self, resources):
-        return self._list('/%s' % self.base_url, params=resources,
-                          headers=self.headers,
-                          response_key=self.response_key)
+        return self._list(
+            f'/{self.base_url}',
+            params=resources,
+            headers=self.headers,
+            response_key=self.response_key,
+        )
